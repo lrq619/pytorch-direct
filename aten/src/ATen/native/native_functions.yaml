@@ -2375,6 +2375,8 @@
 
 - func: matmul(Tensor self, Tensor other) -> Tensor
   variants: function, method
+  dispatch:
+    CPU, CUDA, Unified: matmul
 
 - func: matmul.out(Tensor self, Tensor other, *, Tensor(a!) out) -> Tensor(a!)
   use_c10_dispatcher: hacky_wrapper_for_legacy_signatures
@@ -2660,6 +2662,7 @@
   dispatch:
     CPU: mm_cpu
     CUDA: mm_cuda
+    Unified: mm_cuda
     SparseCPU, SparseCUDA: _sparse_mm
 
 - func: mm.out(Tensor self, Tensor mat2, *, Tensor(a!) out) -> Tensor(a!)
